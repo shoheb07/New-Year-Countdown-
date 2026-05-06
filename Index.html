@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Year Countdown</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#000428,#004e92);
+      color:white;
+      text-align:center;
+    }
+
+    .container{
+      padding:40px;
+      border-radius:20px;
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(10px);
+      box-shadow:0 0 20px rgba(0,0,0,0.4);
+    }
+
+    h1{
+      font-size:3rem;
+      margin-bottom:20px;
+    }
+
+    .countdown{
+      display:flex;
+      gap:20px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .box{
+      background:rgba(255,255,255,0.15);
+      padding:20px;
+      border-radius:15px;
+      min-width:100px;
+    }
+
+    .box h2{
+      font-size:2.5rem;
+    }
+
+    .box p{
+      margin-top:10px;
+      font-size:1rem;
+      letter-spacing:1px;
+    }
+
+    #message{
+      margin-top:25px;
+      font-size:2rem;
+      color:yellow;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>New Year Countdown 2027</h1>
+
+    <div class="countdown">
+      <div class="box">
+        <h2 id="days">0</h2>
+        <p>Days</p>
+      </div>
+
+      <div class="box">
+        <h2 id="hours">0</h2>
+        <p>Hours</p>
+      </div>
+
+      <div class="box">
+        <h2 id="minutes">0</h2>
+        <p>Minutes</p>
+      </div>
+
+      <div class="box">
+        <h2 id="seconds">0</h2>
+        <p>Seconds</p>
+      </div>
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    const newYear = new Date("January 1, 2027 00:00:00").getTime();
+
+    const timer = setInterval(() => {
+
+      const now = new Date().getTime();
+      const distance = newYear - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerHTML = days;
+      document.getElementById("hours").innerHTML = hours;
+      document.getElementById("minutes").innerHTML = minutes;
+      document.getElementById("seconds").innerHTML = seconds;
+
+      if(distance < 0){
+        clearInterval(timer);
+
+        document.querySelector(".countdown").style.display = "none";
+        document.getElementById("message").innerHTML =
+          "🎉 Happy New Year 2027 🎉";
+      }
+
+    }, 1000);
+  </script>
+
+</body>
+</html>
